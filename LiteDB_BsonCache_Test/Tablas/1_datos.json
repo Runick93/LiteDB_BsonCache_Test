@@ -1,0 +1,30 @@
+[
+    {
+        "Nombre": "Juan",
+        "Apellido": "Pérez",
+        "Edad": 30,
+        "Direccion": "Calle Falsa 123",
+        "Telefono": "1234567890"
+    },
+    {
+        "Nombre": "Ana",
+        "Apellido": "Gómez",
+        "Edad": 25,
+        "Direccion": "Avenida Siempre Viva 456",
+        "Telefono": "0987654321"
+    },
+    {
+        "Nombre": "Luis",
+        "Apellido": "Martínez",
+        "Edad": 40,
+        "Direccion": "Boulevard de los Sueños Rotos 789",
+        "Telefono": "1122334455"
+    },
+    {
+        "Nombre": "María",
+        "Apellido": "López",
+        "Edad": 35,
+        "Direccion": "Plaza Mayor 101",
+        "Telefono": "5566778899"
+    }
+]

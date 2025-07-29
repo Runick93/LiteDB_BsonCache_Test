@@ -1,0 +1,30 @@
+[
+    {
+        "Vehiculo": "Auto",
+        "Patente": "NNN444",
+        "Marca": "Chevrolet",
+        "Modelo": "Astra",
+        "Año": "2014"
+    },
+    {
+        "Vehiculo": "Moto",
+        "Patente": "MMM555",
+        "Marca": "Yamaha",
+        "Modelo": "FZ",
+        "Año": "2018"
+    },
+    {
+        "Vehiculo": "Camioneta",
+        "Patente": "LLL666",
+        "Marca": "Ford",
+        "Modelo": "Ranger",
+        "Año": "2020"
+    },
+    {
+        "Vehiculo": "Auto",
+        "Patente": "KKK777",
+        "Marca": "Toyota",
+        "Modelo": "Corolla",
+        "Año": "2019"
+    }
+]

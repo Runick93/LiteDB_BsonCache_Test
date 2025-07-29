@@ -29,19 +29,18 @@ namespace LiteDB_BsonCache_Test.Application
 
             // Asegura los índices
             _collection.EnsureIndex(x => x.Id);
-            _collection.EnsureIndex(x => x.ExpireAt);
+            _collection.EnsureIndex(x => x.CreatedAt);
         }
 
 
-        public void Set(string key, string json, TimeSpan timeToLive)
+        public void Set(string? key, string json)
         {
             var doc = JsonSerializer.Deserialize(json).AsDocument;
             var entry = new CacheEntry
             {
                 Id = key,
                 Data = doc,
-                CreatedAt = DateTime.UtcNow,
-                ExpireAt = DateTime.UtcNow.Add(timeToLive)
+                CreatedAt = DateTime.UtcNow
             };
             _collection.Upsert(entry);
         }
@@ -53,9 +52,11 @@ namespace LiteDB_BsonCache_Test.Application
 
 
         // Funciones esporadicas.
-        public void ClearExpired()
+        public void ClearExpired(TimeSpan maxAge)
         {
-            _collection.DeleteMany(x => x.ExpireAt <= DateTime.UtcNow);
+            var now = DateTime.UtcNow;
+            var expiredCount = _collection.DeleteMany(x => (now - x.CreatedAt) > maxAge);
+            Console.WriteLine($"Se eliminaron {expiredCount} entradas con más de {maxAge.TotalSeconds:F0} segundos de vida.");
         }
 
         public void Remove(string key)

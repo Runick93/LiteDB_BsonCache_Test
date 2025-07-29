@@ -45,23 +45,24 @@ namespace LiteDB_BsonCache_Test
             }
             else
             {
-                double remainingSeconds = (entry.ExpireAt - DateTime.UtcNow).TotalSeconds;
+                double elapsedSeconds = (DateTime.UtcNow - entry.CreatedAt).TotalSeconds;
 
-                if (remainingSeconds <= secondsToExpireThreshold)
-                {                    
+                if (elapsedSeconds >= secondsToExpireThreshold)
+                {
+                    Console.WriteLine($"Cache tiene {elapsedSeconds:F0}s, supero umbral de renovacion. Refrescando...");
                     try
                     {
                         json = CreateTableCache(key);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error al refrescar, devolviendo cache vencida: {ex.Message}");
+                        Console.WriteLine($"Error al refrescar, devolviendo cache vieja: {ex.Message}");
                         json = entry.Data.ToString();
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"Usando cache existente (vence en {remainingSeconds:F0}s)");
+                    Console.WriteLine($"Usando cache reciente.)");
                     json = entry.Data.ToString();
                 }
             }
@@ -69,7 +70,7 @@ namespace LiteDB_BsonCache_Test
             return json;
         }
 
-        public static string CreateTableCache(string key)
+        public static string CreateTableCache(string? key)
         {
             string filePath = @$".\Tablas\{key}.json";
 
@@ -79,7 +80,7 @@ namespace LiteDB_BsonCache_Test
             }
 
             string json = File.ReadAllText(filePath);
-            _cacheManager.Set(key, json, TimeSpan.FromMinutes(10));
+            _cacheManager.Set(key, json);
             return json;
         }
     }
